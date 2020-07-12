@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>COSIM PLATFORM </title>
 	<link href="css/jquery-ui.css" rel="stylesheet">
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
 	<style>
 	body{
 		font-family: "Trebuchet MS", sans-serif;
@@ -62,6 +63,8 @@
 </div>
 
 
+
+
 <!-- Accordion -->
 <h2 class="demoHeaders">模块介绍</h2>
 <div id="accordion">
@@ -86,6 +89,7 @@
 		<a href="#title_checkcfgarg">查看平台参数配置</a>
 		<a href="#title_controlgroup">启动终端模块</a>
 		<a href="#connectwebserver">查看log</a>
+		<a href="#myselfrecord">个人记录</a>
 		</ui>
 
 	</div>
@@ -149,18 +153,6 @@
 
 	</div>
 </fieldset>
-
-
-
-
-
-
-<h2 class="demoHeaders">Dialog</h2>
-<p>
-	<button id="dialog-link" class="ui-button ui-corner-all ui-widget">
-		<span class="ui-icon ui-icon-newwin"></span>Open Dialog
-	</button>
-</p>
 
 
 
@@ -240,15 +232,16 @@ the element with your mouse, the title attribute is displayed in a little box ne
 
 
 
-
+<!---------------------- JS Func ------------------->
 
 <script src="external/jquery/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+
 
 <script>
 
 $( "#accordion" ).accordion();
-
 
 
 $( "#button" ).button();
@@ -275,7 +268,6 @@ $("#btn_rundut").click(function(){
 
 
 
-
 $( "#button-icon" ).button({
 	icon: "ui-icon-gear",
 	showLabel: false
@@ -297,51 +289,9 @@ $("#connectwebserver").tabs();
 $(function() {
     $( "#checkcfgarg" ).tabs({
       collapsible: true
-
 	  
     });
 });
-
-
-
-$( "#dialog" ).dialog({
-	autoOpen: false,
-	width: 400,
-	buttons: [
-		{
-			text: "Ok",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		},
-		{
-			text: "Cancel",
-			click: function() {
-				$( this ).dialog( "close" );
-			}
-		}
-	]
-});
-
-// Link to open the dialog
-$( "#dialog-link" ).click(function( event ) {
-	$( "#dialog" ).dialog( "open" );
-	event.preventDefault();
-});
-
-
-
-$( "#datepicker" ).datepicker({
-	inline: true
-});
-
-
-
-
-$( "#progressbar" ).progressbar({
-	value: 20
-});
-
 
 
 
@@ -355,16 +305,6 @@ $( "#tooltip" ).tooltip();
 
 $( "#selectmenu" ).selectmenu();
 
-
-// Hover states on the static widgets
-$( "#dialog-link, #icons li" ).hover(
-	function() {
-		$( this ).addClass( "ui-state-hover" );
-	},
-	function() {
-		$( this ).removeClass( "ui-state-hover" );
-	}
-);
 
 
 //////////////////////////////////////////////////////////
@@ -491,7 +431,7 @@ function updatejsondata(){  //update the json data
 
 function submit(tmpgurl){
 
-	console.log('submit')
+	alert('update data')
 	updatejsondata();
 	var url = tmpgurl;   //app cfg submit
 	var httpRequest = new XMLHttpRequest();
@@ -515,7 +455,7 @@ $("#href_submit").click(function(){
 $("#href_app").click(function(){
 	console.log('href app ');
   //  creatTab();
-    gurl = "http://192.168.1.7:8888/app.ini";
+    gurl = "http://192.168.1.7:8888/cosim/cfgini/app.ini";
 
     var tab='<table id="cfgtable" border=1 width=500">'
 
@@ -546,7 +486,7 @@ $("#href_app").click(function(){
 });
 $("#href_qemu").click(function(){
 	console.log('href qemu ');
-    gurl = "http://192.168.1.7:8888/qemu.ini";
+    gurl = "http://192.168.1.7:8888/cosim/cfgini/qemu.ini";
     var tab='<table id="cfgtable" border=1 width=500">'
     
 	//send post request
@@ -575,7 +515,10 @@ $("#href_qemu").click(function(){
 });
 
 
-//-------------------------------------------------------------------/
+//--------------------------show pic func-----------------------------------------/
+
+
+//----------------------------------------------------------------------------------/
 
 
 </script>

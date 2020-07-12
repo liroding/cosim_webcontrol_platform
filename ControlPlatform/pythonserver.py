@@ -187,33 +187,33 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
             return 0
 
 
-       if path == '/app.ini':
+       if path == '/cosim/cfgini/app.ini':
             print 'get the app.ini'
             print (PROJECT_ROOT)
-            jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/app.ini')
+            jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/cosim/cfgini/app.ini')
             self.wfile.write(jsonStr)
 
 	    return 0
 
 
 
-       if path == '/qemu.ini':
+       if path == '/cosim/cfgini/qemu.ini':
             print 'get the qemu.ini'
             print (PROJECT_ROOT)
-            jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/qemu.ini')
+            jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/cosim/cfgini/qemu.ini')
             self.wfile.write(jsonStr)
 
 	    return 0
 
 
 
-       if path == '/app.ini/update':    #app cfg submit
+       if path == '/cosim/cfgini/app.ini/update':    #app cfg submit
             print 'submit new cfg data to app.ini'
 	    jsonobj = json.loads(content)  #string to jsonobj
 	    #print(type(jsonobj))
 	    #print(jsonobj)
 
-	    handleclass.writebackcfgini(PROJECT_ROOT+ '/app.ini',jsonobj)
+	    handleclass.writebackcfgini(PROJECT_ROOT+ '/cosim/cfgini/app.ini',jsonobj)
             '''
 	    self.handleclass =  HandleCfgFile()
             jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/hifcfg.ini')
@@ -222,11 +222,11 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
             return 0         
 
 
-       if path == '/qemu.ini/update':    #qemu cfg submit
+       if path == '/cosim/cfgini/qemu.ini/update':    #qemu cfg submit
             print 'submit new cfg data to qemu.ini'
 	    jsonobj = json.loads(content)  #string to jsonobj
 
-	    handleclass.writebackcfgini(PROJECT_ROOT+ '/qemu.ini',jsonobj)
+	    handleclass.writebackcfgini(PROJECT_ROOT+ '/cosim/cfgini/qemu.ini',jsonobj)
             '''
 	    self.handleclass =  HandleCfgFile()
             jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/hifcfg.ini')
