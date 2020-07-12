@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>COSIM PLATFORM </title>
+	<link href="css/jquery-ui.css" rel="stylesheet">
+	<style>
+	body{
+		font-family: "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+
+
+	</style>
+</head>
+<body>
+
+
+
+
+<h1>-------- COSIM PlatForm -------</h1>
+
+<div class="ui-widget">
+	<p>简单介绍平台可以实现的功能</p>
+</div>
+
+
+<!-- Accordion -->
+<h2 class="demoHeaders">模块介绍</h2>
+<div id="accordion">
+	<h3>App </h3>
+	<div>介绍app 模块 .</div>
+	<h3>Qemu </h3>
+	<div>介绍Qemu 模块 具有哪些功能以及基于资源分配.</div>
+	<h3>Dut </h3>
+	<div>介绍Dut 模块 .</div>
+</div>
+
+
+
+
+<!-- Controlgroup -->
+<h2 class="demoHeaders">操作台</h2>
+<fieldset>
+	<legend>控制面板</legend>
+	<div id="controlpanel">
+		<ui>
+		<a href="#title_connectwebserver">链接服务器</a>
+		<a href="#title_checkcfgarg">查看平台参数配置</a>
+		<a href="#title_controlgroup">启动终端模块</a>
+		<a href="#connectwebserver">查看log</a>
+		</ui>
+
+	</div>
+</fieldset>
+
+
+
+<!-- build link with webserver -->
+<h2 id="title_connectwebserver" class="demoHeaders">链接web服务</h2>
+<div id="connectwebserver">
+    
+	<p><label for="ipaddr">Server IPAddr：</label><input id="ip" title="Input Ip Address"></p>
+	<p><label for="port">  Server Port：</label><input id="port" title="Input Port Value"></p>
+
+	<button id="btn_openlink">Connect Server</button>
+	<button id="btn_closelink">Close Connect </button> </br>
+	
+</div>
+
+<!-- Tabs -->
+<h2 id="title_checkcfgarg" class="demoHeaders">查看配置状态</h2>
+
+<div id="checkcfgarg">
+	<ul>
+		<li><a href="#" id='href_app'>APP CFG</a></li>
+		<li><a href="#" id='href_qemu'>QEMU CFG</a></li>
+		<li><a href="#tabs-3">DUT CFG</a></li>
+		<li><a href="#tabs-3">一键查看</a></li>
+		<li><a href="#" id='href_submit'>更新数据</a></li> 
+
+	</ul>
+
+	<div>
+		<text id="checkcfgarg_showInfo"></text>
+	</div>
+
+</div>
+
+<!-- set cfg arg 
+<h2 class="demoHeaders">修改平台参数</h2>
+<div>
+
+</div>
+-->
+
+
+<!-- Controlgroup -->
+<h2 id= "title_controlgroup" class="demoHeaders">操作台</h2>
+<fieldset>
+	<legend>控制面板</legend>
+	<div id="controlgroup">
+		<select id="car-type">
+			<option>一般操作</option>
+			<option>特殊操作</option>
+
+		</select>
+
+		<button id="btn_runscreen">Run Screen</button>
+		<button id="btn_runqemu">Run Qemu</button>
+		<button id="btn_rundut">Run Dut</button>
+
+	</div>
+</fieldset>
+
+
+
+
+
+
+<h2 class="demoHeaders">Dialog</h2>
+<p>
+	<button id="dialog-link" class="ui-button ui-corner-all ui-widget">
+		<span class="ui-icon ui-icon-newwin"></span>Open Dialog
+	</button>
+</p>
+
+
+
+
+<!-- Progressbar -->
+<h2 class="demoHeaders">Selectmenu</h2>
+<select id="selectmenu">
+	<option>Slower</option>
+	<option>Slow</option>
+	<option selected="selected">Medium</option>
+	<option>Fast</option>
+	<option>Faster</option>
+</select>
+
+
+
+
+<!-- Menu -->
+<h2 class="demoHeaders">Menu</h2>
+<ul style="width:100px;" id="menu">
+	<li><div>Item 1</div></li>
+	<li><div>Item 2</div></li>
+	<li><div>Item 3</div>
+		<ul>
+			<li><div>Item 3-1</div></li>
+			<li><div>Item 3-2</div></li>
+			<li><div>Item 3-3</div></li>
+			<li><div>Item 3-4</div></li>
+			<li><div>Item 3-5</div></li>
+		</ul>
+	</li>
+	<li><div>Item 4</div></li>
+	<li><div>Item 5</div></li>
+</ul>
+
+
+
+<!-- Tooltip -->
+<h2 class="demoHeaders">Tooltip</h2>
+<p id="tooltip">
+	<a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
+the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.
+</p>
+
+
+<!-- Highlight / Error -->
+<h2 class="demoHeaders">Highlight / Error</h2>
+<div class="ui-widget">
+	<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;">
+		<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+		<strong>Hey!</strong> Sample ui-state-highlight style.</p>
+	</div>
+</div>
+<br>
+<div class="ui-widget">
+	<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+		<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+		<strong>Alert:</strong> Sample ui-state-error style.</p>
+	</div>
+</div>
+
+
+/////////////////////////////////////////////////////////////////
+<!-- record self info -->
+<h2 class="demoHeaders">Record INFO</h2>
+<ol>
+<li>insert you information</li>
+</ol>
+<button id="btn_insertinfo">添加文本</button>
+
+
+
+<!-- GET LOG-->
+<h2 class="demoHeaders">Get Log</h2>
+<button id="btn_getlog">获取外部内容</button>
+
+
+
+
+
+
+<script src="external/jquery/jquery.js"></script>
+<script src="js/jquery-ui.js"></script>
+
+<script>
+
+$( "#accordion" ).accordion();
+
+
+
+$( "#button" ).button();
+$("#btn_runscreen").click(function(){
+
+    alert("数据: run screen");
+	$(this).text("screen open");
+
+});
+
+$("#btn_runqemu").click(function(){
+
+    alert("数据: run qemu");
+	$(this).text("qemu open");
+
+});
+
+$("#btn_rundut").click(function(){
+
+    alert("数据: run dut");
+	$(this).text("dut open");
+
+});
+
+
+
+
+$( "#button-icon" ).button({
+	icon: "ui-icon-gear",
+	showLabel: false
+});
+
+
+
+$( "#radioset" ).buttonset();
+
+
+
+$( "#controlgroup" ).controlgroup();
+
+
+
+$("#connectwebserver").tabs();
+
+
+$(function() {
+    $( "#checkcfgarg" ).tabs({
+      collapsible: true
+
+	  
+    });
+});
+
+
+
+$( "#dialog" ).dialog({
+	autoOpen: false,
+	width: 400,
+	buttons: [
+		{
+			text: "Ok",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		},
+		{
+			text: "Cancel",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+
+// Link to open the dialog
+$( "#dialog-link" ).click(function( event ) {
+	$( "#dialog" ).dialog( "open" );
+	event.preventDefault();
+});
+
+
+
+$( "#datepicker" ).datepicker({
+	inline: true
+});
+
+
+
+
+$( "#progressbar" ).progressbar({
+	value: 20
+});
+
+
+
+
+$( "#menu" ).menu();
+
+
+
+$( "#tooltip" ).tooltip();
+
+
+
+$( "#selectmenu" ).selectmenu();
+
+
+// Hover states on the static widgets
+$( "#dialog-link, #icons li" ).hover(
+	function() {
+		$( this ).addClass( "ui-state-hover" );
+	},
+	function() {
+		$( this ).removeClass( "ui-state-hover" );
+	}
+);
+
+
+//////////////////////////////////////////////////////////
+
+
+$(document).ready(function(){
+       alert("weclome ------ ");
+
+}) ;
+$(document).ready(function(){
+
+  $("#btn_insertinfo").click(function(){
+    $("ol").append("<li>追加列表项</li>");
+  });
+});
+
+$(document).ready(function(){
+	$("#btn_getlog").click(function(){
+
+	alert('nihao');
+    $.post("http://192.168.1.7:8888",
+    {
+        name:"nihao",
+		age:18
+       
+    },
+    function(data,status){
+        alert("数据: \n" + data + "\n状态: " + status);
+    });
+
+
+	});
+});
+
+
+$(document).ready(function(){
+
+  $("#controlpanel").controlgroup();
+});
+
+
+
+
+//-----------------------------------------------------------------/
+var gdatajson; 
+var gurl = "";
+var gurlupdate = "";    //update the cfg.ini file base this url 
+
+function Modify(btn) {
+		
+        	var modify = btn.value == '修改'
+        	var tr = btn.parentNode.parentNode;
+	
+
+        	if (modify) {
+			 
+           		 tr.cells[1].innerHTML = '<input type="text" value="' + tr.cells[1].innerHTML.replace(/"/g, '&quot;') + '"/>'
+	     
+        	}
+        	else {
+ 					
+                 tr.cells[1].innerHTML = tr.cells[1].firstChild.value.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+	
+        	}
+			//alert('[LIRO-DEBUG] row = '  + tr.rowIndex);
+			//alert('[LIRO-DEBUG] row = '  + tr.cells[0].innerText);
+			//alert('[LIRO-DEBUG] value = ' + tr.cells[1].innerText);
+			
+        	btn.value=modify?'更新':'修改'
+		
+}
+
+
+function creatTab(datajson,tab){
+    console.log("creattab");
+
+    var rows = 0;
+	var tmptab = tab;
+	
+    objnum = Object.keys(datajson).length;
+	
+	console.log(objnum);
+        		
+    for(var i=0;i<objnum;i++){
+	            tmptab+='<tr>'
+	            for(var key in datajson[i]){
+	            	    tmptab +="<td style='background:green' >"+ key +"</td>"
+						tmptab +="<td style='background:green' >"+ datajson[i][key] +"</td>"
+						tmptab += '<td><input type="button" value="修改" onclick="Modify(this)" /></td>'
+						tmptab += "<td style='background:green'>"  + "<p title="+ datajson[i][key] + ">?</p>" + "</td></tr>"
+	            		tmptab +='</tr>'
+				    
+	            }
+      }  
+				
+    tmptab+='</table>';
+
+	return tmptab;
+	
+};
+
+
+
+function updatejsondata(){  //update the json data
+	var tb = document.getElementById('cfgtable');    // table 的 id
+	objnum = Object.keys(gdatajson).length;  
+	var rows = tb.rows;                           // 获取表格所有行
+		for(var i = 0; i<rows.length ; i++ ){
+   				for(var j = 0; j< 1; j++ ){    
+					for(var x=0;x<objnum;x++){
+						for(var key in gdatajson[x]){  //
+							if(rows[i].cells[j].innerHTML==key){
+								//alert('==')
+								gdatajson[x][key] = rows[i].cells[j+1].innerHTML
+								break
+							}
+						}
+					}
+   				}
+		}
+}
+
+
+
+function submit(tmpgurl){
+
+	console.log('submit')
+	updatejsondata();
+	var url = tmpgurl;   //app cfg submit
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.open('POST', url, true); 
+	httpRequest.setRequestHeader("Content-type", "multipart/form-data");
+	//httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	
+	httpRequest.send(JSON.stringify(gdatajson))
+}
+
+
+$("#href_submit").click(function(){
+	console.log('href submit');
+	gurlupdate = gurl + "/update";
+	
+    console.log(gurlupdate);
+	submit(gurlupdate);
+});
+
+//-----------------------------------------------------------------//
+$("#href_app").click(function(){
+	console.log('href app ');
+  //  creatTab();
+    gurl = "http://192.168.1.7:8888/app.ini";
+
+    var tab='<table id="cfgtable" border=1 width=500">'
+
+	//send post request
+
+    $.post(gurl,
+    {
+        type:"app"
+       
+    },
+    function(data,status){
+        console.log("数据: \n" + data + "\n状态: " + status);
+		
+		var jsonstr = data;
+		gdatajson = JSON.parse(jsonstr);
+
+		console.log(jsonstr)
+
+	    varnewtab = creatTab(gdatajson,tab);
+
+		console.log(varnewtab)
+		
+		$("#checkcfgarg_showInfo").text("");
+		$("#checkcfgarg_showInfo").html(varnewtab);
+		
+    });
+    
+});
+$("#href_qemu").click(function(){
+	console.log('href qemu ');
+    gurl = "http://192.168.1.7:8888/qemu.ini";
+    var tab='<table id="cfgtable" border=1 width=500">'
+    
+	//send post request
+
+    $.post(gurl,
+    {
+        type:"qemu"
+    },
+    function(data,status){
+        console.log("数据: \n" + data + "\n状态: " + status);
+		
+		var jsonstr = data;
+		gdatajson = JSON.parse(jsonstr);
+
+		console.log(jsonstr)
+
+	    varnewtab = creatTab(gdatajson,tab);
+
+		console.log(varnewtab)
+		
+		$("#checkcfgarg_showInfo").text("");
+		$("#checkcfgarg_showInfo").html(varnewtab);
+		
+    });
+    
+});
+
+
+//-------------------------------------------------------------------/
+
+
+</script>
+
+
+
+</body>
+</html>
