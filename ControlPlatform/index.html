@@ -101,10 +101,14 @@
 <h2 id="title_connectwebserver" class="demoHeaders">链接web服务</h2>
 <div id="connectwebserver">
     
-	<p><label for="ipaddr">Server IPAddr：</label><input id="ip" title="Input Ip Address"></p>
-	<p><label for="port">  Server Port：</label><input id="port" title="Input Port Value"></p>
-
-	<button id="btn_openlink">Connect Server</button>
+    <p><label for="ipaddr">Server IPAddr：</label><input id="ip" title="Input Ip Address" disabled="disabled"></p>
+	<p><label for="port">  Server Port：</label><input id="port" title="Input Port Value" disabled="disabled"></p>
+    <!--
+    <p><label for="ipaddr">Server IPAddr：</label><input id="ip" title="Input Ip Address" ></p>
+	<p><label for="port">  Server Port：</label><input id="port" title="Input Port Value" ></p>
+    -->
+    
+    <button id="btn_openlink">Connect Server</button>
 	<button id="btn_closelink">Close Connect </button> </br>
 	
 </div>
@@ -112,7 +116,7 @@
 <!-- Tabs -->
 <h2 id="title_checkcfgarg" class="demoHeaders">查看配置状态</h2>
 
-<div id="checkcfgarg">
+<div id="checkcfgarg" style ="color: #00ff00;height:300px;width:800px;overflow:auto;">
 	<ul>
 		<li><a href="#" id='href_app'>APP CFG</a></li>
 		<li><a href="#" id='href_qemu'>QEMU CFG</a></li>
@@ -325,7 +329,7 @@ $(document).ready(function(){
 	$("#btn_getlog").click(function(){
 
 	alert('nihao');
-    $.post("http://192.168.1.7:8888",
+    $.post("http://127.0.1.1:8888",
     {
         name:"nihao",
 		age:18
@@ -455,7 +459,7 @@ $("#href_submit").click(function(){
 $("#href_app").click(function(){
 	console.log('href app ');
   //  creatTab();
-    gurl = "http://192.168.1.7:8888/cosim/cfgini/app.ini";
+    gurl = "http://127.0.1.1:8888/cosim/cfgini/app.ini";
 
     var tab='<table id="cfgtable" border=1 width=500">'
 
@@ -486,7 +490,7 @@ $("#href_app").click(function(){
 });
 $("#href_qemu").click(function(){
 	console.log('href qemu ');
-    gurl = "http://192.168.1.7:8888/cosim/cfgini/qemu.ini";
+    gurl = "http://127.0.1.1:8888/cosim/cfgini/qemu.ini";
     var tab='<table id="cfgtable" border=1 width=500">'
     
 	//send post request
@@ -512,6 +516,22 @@ $("#href_qemu").click(function(){
 		
     });
     
+});
+
+//---------------------------ipaddr port func--------------------------------------------/
+$("#btn_openlink").click(function(){
+                
+    serverinipath = "cosim/cfgini/server.ini";
+    alert('ip');           
+    $("#ip").val("192:!222");
+	
+    var fso = new ActiveXObject("Scripting.FileSystemObject"); 
+alert(fso);
+    //var f = fso.OpenTextFile(serverinipath,1);   
+    //var strFileAllValue = f.ReadAll();
+
+//    alert(strFileAllValue);    
+    alert('ddddd');    
 });
 
 
