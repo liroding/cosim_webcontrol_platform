@@ -522,16 +522,11 @@ $("#href_qemu").click(function(){
 $("#btn_openlink").click(function(){
                 
     serverinipath = "cosim/cfgini/server.ini";
-    alert('ip');           
-    $("#ip").val("192:!222");
-	
-    var fso = new ActiveXObject("Scripting.FileSystemObject"); 
-alert(fso);
-    //var f = fso.OpenTextFile(serverinipath,1);   
-    //var strFileAllValue = f.ReadAll();
-
-//    alert(strFileAllValue);    
-    alert('ddddd');    
+  //  alert('ip');           
+//    $("#ip").val("192:!222");
+    $.getJSON("server.json",function(data)	{
+                    alert(data);
+                    })
 });
 
 
