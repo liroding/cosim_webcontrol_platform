@@ -101,6 +101,7 @@
 <h2 id="title_connectwebserver" class="demoHeaders">链接web服务</h2>
 <div id="connectwebserver">
     
+    <p><label for="ipaddr">Server HostName：</label><input id="hostname" title="Input host name" disabled="disabled"></p>
     <p><label for="ipaddr">Server IPAddr：</label><input id="ip" title="Input Ip Address" disabled="disabled"></p>
 	<p><label for="port">  Server Port：</label><input id="port" title="Input Port Value" disabled="disabled"></p>
     <!--
@@ -118,17 +119,17 @@
 
 <div id="checkcfgarg" style ="color: #00ff00;height:300px;width:800px;overflow:auto;">
 	<ul>
-		<li><a href="#" id='href_app'>APP CFG</a></li>
-		<li><a href="#" id='href_qemu'>QEMU CFG</a></li>
+		<li><a href="#12" id='href_app'>APP CFG</a></li>
+		<li><a href="#32" id='href_qemu'>QEMU CFG</a></li>
 		<li><a href="#tabs-3">DUT CFG</a></li>
 		<li><a href="#tabs-3">一键查看</a></li>
-		<li><a href="#" id='href_submit'>更新数据</a></li> 
+		<li><a href="#2" id='href_submit'>更新数据</a></li> 
 
 	</ul>
 
-	<div>
-		<text id="checkcfgarg_showInfo"></text>
-	</div>
+    <div>
+        <text id ="checkcfgarg_showInfo"></text>
+    </div>
 
 </div>
 
@@ -238,7 +239,7 @@ the element with your mouse, the title attribute is displayed in a little box ne
 
 <!---------------------- JS Func ------------------->
 
-<script src="external/jquery/jquery.js"></script>
+<script src="external/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 
@@ -272,10 +273,7 @@ $("#btn_rundut").click(function(){
 
 
 
-$( "#button-icon" ).button({
-	icon: "ui-icon-gear",
-	showLabel: false
-});
+
 
 
 
@@ -315,7 +313,7 @@ $( "#selectmenu" ).selectmenu();
 
 
 $(document).ready(function(){
-       alert("weclome ------ ");
+       //alert("weclome ------ ");
 
 }) ;
 $(document).ready(function(){
@@ -356,6 +354,10 @@ $(document).ready(function(){
 var gdatajson; 
 var gurl = "";
 var gurlupdate = "";    //update the cfg.ini file base this url 
+
+var serverip = null; //ipaddress
+var serverport = null; //port
+
 
 function Modify(btn) {
 		
@@ -457,9 +459,14 @@ $("#href_submit").click(function(){
 
 //-----------------------------------------------------------------//
 $("#href_app").click(function(){
-	console.log('href app ');
-  //  creatTab();
-    gurl = "http://127.0.1.1:8888/cosim/cfgini/app.ini";
+	if (serverip == null)
+        alert('ip is null,please connect the server');
+    console.log('href app ');
+    alert(serverport); 
+//    gurl = "http://127.0.1.1:8888/cosim/cfgini/app.ini";
+   
+    gurl = "http://" + serverip + ":" + serverport + "/cosim/cfgini/app.ini";
+    alert(gurl);
 
     var tab='<table id="cfgtable" border=1 width=500">'
 
@@ -489,8 +496,16 @@ $("#href_app").click(function(){
     
 });
 $("#href_qemu").click(function(){
-	console.log('href qemu ');
-    gurl = "http://127.0.1.1:8888/cosim/cfgini/qemu.ini";
+   
+	if (serverip == null)
+        alert('ip is null,please connect the server');
+    console.log('href qemu ');
+    alert(serverport); 
+   
+    gurl = "http://" + serverip + ":" + serverport + "/cosim/cfgini/qemu.ini";
+  
+    alert(gurl)
+    
     var tab='<table id="cfgtable" border=1 width=500">'
     
 	//send post request
@@ -522,11 +537,24 @@ $("#href_qemu").click(function(){
 $("#btn_openlink").click(function(){
                 
     serverinipath = "cosim/cfgini/server.ini";
-  //  alert('ip');           
-//    $("#ip").val("192:!222");
-    $.getJSON("server.json",function(data)	{
-                    alert(data);
-                    })
+    
+
+    $.getJSON("webserver/cfg/server.json",function(data)	{
+                    alert('connect server .....');
+					$.each(data,function(i,field){
+                        if (i == 'ip'){
+                            $("#ip").val(field);
+                            serverip = field;
+                        }else if(i == 'port'){
+                            $("#port").val(field);
+                            serverport = field; 
+                        }else if(i == 'hostname'){
+                            $("#hostname").val(field);
+                        
+                        }
+
+					})
+         })
 });
 
 
@@ -536,8 +564,11 @@ $("#btn_openlink").click(function(){
 //----------------------------------------------------------------------------------/
 
 
-</script>
 
+
+
+
+</script>
 
 
 </body>
