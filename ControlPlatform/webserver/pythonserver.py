@@ -235,7 +235,10 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
             return 0         
 
             '''
-
+       if path == '/checkserverstatus':    # server status
+            self.wfile.write('server alive')
+            return 0
+            
 
 #       self.send_header("Content-Length", str(len(content)))  
  

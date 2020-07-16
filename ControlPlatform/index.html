@@ -595,11 +595,41 @@ $("#btn_closelink").click(function(){
 //--------------------------show pic func-----------------------------------------/
 
 
-//----------------------------------------------------------------------------------/
+//------------------------------check server link status----------------------------------------------------/
+
+function serverlinkstatus(){
+
+	if (serverip == null)
+        alert('ip is null,please connect the server');
+    console.log('check server link status ..... ');
+   
+    gurl = "http://" + serverip + ":" + serverport + "/checkserverstatus";
+   // alert(gurl);
 
 
+	//send post request
+
+    $.post(gurl,
+    {
+        type:"serverstatus"
+       
+    },
+    function(data,status){
+    	
+        console.log("数据: \n" + data + "\n状态: " + status);
+        //alert("数据: \n" + data + "\n状态: " + status);
+		
+    }).error(function(xhr,errorText,errorType){
+    	alert('The server is disconnected !!!');
+
+	});;
 
 
+}
+
+setInterval("serverlinkstatus()",10000);
+
+//-----------------------------------------------------------------------------------/
 
 
 </script>
