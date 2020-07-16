@@ -14,7 +14,8 @@ import json
 from configobj import ConfigObj
 import random
 
-PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+#PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+PROJECT_ROOT = os.path.dirname( os.path.dirname(os.path.realpath(__file__)))
 
 class HandleCfgFile():
   def getkeyvalue(self,strline,key1,key2):
@@ -42,10 +43,6 @@ class HandleCfgFile():
         jsonArr = json.dumps(_list, ensure_ascii=False)
         print("[LIRO-DEBUG] jsonstring = %s " % jsonArr)
         return jsonArr
-        
-        
-        
-        
         
         
         '''
@@ -308,6 +305,6 @@ def close_server():
 
     os._exit(0)
 
-os.chdir('static') #改变工作目录到 static 目录
+os.chdir('../static') #改变工作目录到 static 目录
 randomport = getPort()
 start_server(randomport) #启动服务，监听8000端口
