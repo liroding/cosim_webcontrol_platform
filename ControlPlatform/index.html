@@ -536,7 +536,7 @@ $("#href_qemu").click(function(){
 //---------------------------ipaddr port func--------------------------------------------/
 $("#btn_openlink").click(function(){
                 
-    serverinipath = "cosim/cfgini/server.ini";
+//    serverinipath = "cosim/cfgini/server.ini";
     
 
     $.getJSON("webserver/cfg/server.json",function(data)	{
@@ -557,6 +557,40 @@ $("#btn_openlink").click(function(){
          })
 });
 
+$("#btn_closelink").click(function(){
+                
+
+	if (serverip == null)
+        alert('ip is null,please connect the server');
+    console.log('close server connect ..... ');
+   
+    gurl = "http://" + serverip + ":" + serverport + "/closeserver";
+    alert(gurl);
+
+
+	//send post request
+
+    $.post(gurl,
+    {
+        type:"closeserver"
+       
+    },
+    function(data,status){
+        console.log("数据: \n" + data + "\n状态: " + status);
+		
+    });
+
+    //window.location.reload();
+
+
+
+
+
+
+
+
+
+});
 
 //--------------------------show pic func-----------------------------------------/
 

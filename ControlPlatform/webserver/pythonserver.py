@@ -210,8 +210,31 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
             handleclass.writebackcfgini(PROJECT_ROOT+ '/cosim/cfgini/qemu.ini',jsonobj)
             return 0         
 
+       if path == '/closeserver':    #close server
+    
+            close_server()
+            '''
+            print("close web server !!!")
+            #write server.json
+            filepath = PROJECT_ROOT + '/webserver/cfg/server.json'
+            print filepath
 
+            jsondata =""
+            with open(filepath,'r') as file:
+                jsondata = json.load(file)
+                print(jsondata)
+                jsondata['ip'] = 12
+                jsondata['port'] = 34
+                jsondata['hostname'] = 56
+                print('dddddd')     
+            with open(filepath ,'w') as file:
+                json.dump(jsondata,file)
+                print('write')
+            os._exit(0)
 
+            return 0         
+
+            '''
 
 
 #       self.send_header("Content-Length", str(len(content)))  
@@ -265,11 +288,12 @@ def start_server(port):
      
      handleclass.writebackcfgini(PROJECT_ROOT+ '/webserver/cfg/server.ini',jsondata)
 
+
+
+
      #write server.json
      filepath = PROJECT_ROOT + '/webserver/cfg/server.json'
      print filepath
-
-
 
      jsondata =""
      with open(filepath,'r') as file:
@@ -302,7 +326,19 @@ def getPort():
         return getPort()
 def close_server():
     print("close web server !!!")
+    #write server.json
+    filepath = PROJECT_ROOT + '/webserver/cfg/server.json'
+    print filepath
 
+    jsondata =""
+    with open(filepath,'r') as file:
+        jsondata = json.load(file)
+        print(jsondata)
+        jsondata['ip'] = ''
+        jsondata['port'] = ''
+        jsondata['hostname'] = ''
+    with open(filepath ,'w') as file:
+        json.dump(jsondata,file)
     os._exit(0)
 
 os.chdir('../static') #改变工作目录到 static 目录
