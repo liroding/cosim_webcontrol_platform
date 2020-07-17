@@ -89,7 +89,7 @@
 		<a href="#title_checkcfgarg">查看平台参数配置</a>
 		<a href="#title_controlgroup">启动终端模块</a>
 		<a href="#connectwebserver">查看log</a>
-		<a href="#myselfrecord">个人记录</a>
+		<a href="#title_recordinfo">个人记录</a>
 		</ui>
 
 	</div>
@@ -222,11 +222,16 @@ the element with your mouse, the title attribute is displayed in a little box ne
 
 /////////////////////////////////////////////////////////////////
 <!-- record self info -->
-<h2 class="demoHeaders">Record INFO</h2>
+<h2 id="title_recordinfo" class="demoHeaders">Record INFO</h2>
 <ol>
 <li>insert you information</li>
 </ol>
+
+<div>
+        <text id ="infoshow">dssdsd</text>
+</div>
 <button id="btn_insertinfo">添加文本</button>
+<button id="btn_showinfo">showinfo</button>
 
 
 
@@ -629,9 +634,9 @@ function serverlinkstatus(){
 
 setInterval("serverlinkstatus()",10000);
 
+//----------------------------------Info record-------------------------------------------------/
+
 //-----------------------------------------------------------------------------------/
-
-
 </script>
 
 
