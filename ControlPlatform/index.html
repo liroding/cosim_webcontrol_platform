@@ -48,6 +48,13 @@
 		width: 200px;
 	}
 
+	.comments {
+	 width:100%;/*自动适应父布局宽度*/
+	 overflow:auto;
+	 word-break:break-all;
+	 height:100px;
+	 
+	}
 
 	</style>
 </head>
@@ -133,12 +140,6 @@
 
 </div>
 
-<!-- set cfg arg 
-<h2 class="demoHeaders">修改平台参数</h2>
-<div>
-
-</div>
--->
 
 
 <!-- Controlgroup -->
@@ -159,39 +160,6 @@
 	</div>
 </fieldset>
 
-
-
-
-<!-- Progressbar -->
-<h2 class="demoHeaders">Selectmenu</h2>
-<select id="selectmenu">
-	<option>Slower</option>
-	<option>Slow</option>
-	<option selected="selected">Medium</option>
-	<option>Fast</option>
-	<option>Faster</option>
-</select>
-
-
-
-
-<!-- Menu -->
-<h2 class="demoHeaders">Menu</h2>
-<ul style="width:100px;" id="menu">
-	<li><div>Item 1</div></li>
-	<li><div>Item 2</div></li>
-	<li><div>Item 3</div>
-		<ul>
-			<li><div>Item 3-1</div></li>
-			<li><div>Item 3-2</div></li>
-			<li><div>Item 3-3</div></li>
-			<li><div>Item 3-4</div></li>
-			<li><div>Item 3-5</div></li>
-		</ul>
-	</li>
-	<li><div>Item 4</div></li>
-	<li><div>Item 5</div></li>
-</ul>
 
 
 
@@ -223,15 +191,26 @@ the element with your mouse, the title attribute is displayed in a little box ne
 /////////////////////////////////////////////////////////////////
 <!-- record self info -->
 <h2 id="title_recordinfo" class="demoHeaders">Record INFO</h2>
-<ol>
-<li>insert you information</li>
-</ol>
 
-<div>
-        <text id ="infoshow">dssdsd</text>
-</div>
-<button id="btn_insertinfo">添加文本</button>
-<button id="btn_showinfo">showinfo</button>
+<fieldset>
+	<legend>INFO</legend>
+
+	<div id = "div_infoshow" >
+		 
+      		<textarea class="comments" id="infoshow" readonly="true" style="width:200px; height:100px">
+
+      		</textarea>
+     		<button id="btn_showinfo">showinfo</button>
+	</div>
+
+	<br>
+
+	Input Info: <input type="text" name="user" />
+	<button id="btn_addinfo">addinfo</button>
+
+	
+</fieldset>
+
 
 
 
@@ -247,7 +226,7 @@ the element with your mouse, the title attribute is displayed in a little box ne
 <script src="external/jquery.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="js/jquery-ui.min.js"></script>
-
+<script src="js/edit.js"></script>
 
 <script>
 
@@ -321,12 +300,7 @@ $(document).ready(function(){
        //alert("weclome ------ ");
 
 }) ;
-$(document).ready(function(){
 
-  $("#btn_insertinfo").click(function(){
-    $("ol").append("<li>追加列表项</li>");
-  });
-});
 
 $(document).ready(function(){
 	$("#btn_getlog").click(function(){
@@ -632,10 +606,24 @@ function serverlinkstatus(){
 
 }
 
-setInterval("serverlinkstatus()",10000);
+//setInterval("serverlinkstatus()",10000);
 
 //----------------------------------Info record-------------------------------------------------/
+$(document).ready(function(){
 
+
+  $("#btn_showinfo").click(function(){
+
+      $("#infoshow").load('test.txt');
+  });
+
+
+  $("#btn_addinfo").click(function(){
+
+     alert('dddddd');
+  });
+  
+});
 //-----------------------------------------------------------------------------------/
 </script>
 
