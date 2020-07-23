@@ -16,8 +16,6 @@ import random
 
 #PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname( os.path.dirname(os.path.realpath(__file__)))
-
-
 class HandleStr():
   def getkeyvalue(self,strline,key1,key2):
       pat = re.compile(key1+'(.*?)' + key2,re.S)
@@ -247,39 +245,26 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
        if path == '/closeserver':    #close server
     
             close_server()
-            '''
-            print("close web server !!!")
-            #write server.json
-            filepath = PROJECT_ROOT + '/webserver/cfg/server.json'
-            print filepath
-
-            jsondata =""
-            with open(filepath,'r') as file:
-                jsondata = json.load(file)
-                print(jsondata)
-                jsondata['ip'] = 12
-                jsondata['port'] = 34
-                jsondata['hostname'] = 56
-                print('dddddd')     
-            with open(filepath ,'w') as file:
-                json.dump(jsondata,file)
-                print('write')
-            os._exit(0)
-
-            return 0         
-
-            '''
        if path == '/checkserverstatus':    # server status
             self.wfile.write('server alive')
             return 0
-            
+
+
+
+
+       if path == '/runscreen':    # server status
+            print('runscreen')
+            scriptpath_screen = PROJECT_ROOT + '/cosim/shellscript/runqemu.sh'
+            os.system(scriptpath_screen)
+            self.wfile.write('run screen script')
+            return 0
 
 #       self.send_header("Content-Length", str(len(content)))  
  
-       self.wfile.write('Client: %sn ' % str(self.client_address) )
-       self.wfile.write('User-agent: %sn' % str(self.headers['user-agent']))
-       self.wfile.write('Path: %sn'%self.path)
-       self.wfile.write('Form data:n')
+       self.wfile.write('Client: %s ' % str(self.client_address) )
+       self.wfile.write('User-agent: %s' % str(self.headers['user-agent']))
+       self.wfile.write('Path: %s'%self.path)
+       self.wfile.write('Form data:')
 
 
     

@@ -1,0 +1,28 @@
+
+app
+一个Text项目可以显示纯文本或者富文本
+
+1.     可以使用Html标记：text: “<b>HELLO</b>”
+
+2.     宽度和高度（width, height）:没有指定，会自己尝试需要多大的空间并依此来设置。
+
+3.     换行：wrapMode属性，没有设置，则单行
+
+4.     省略：elide属性。宽度不足显示文本，显示为省略号，省略样式：前(Text.ElideLeft)，中(Text.ElideMiddle)，后(Text.ElideRight)，默认(Text.ElideNone)
+
+5.     字体：font
+
+font.blod: true—加粗，false
+
+font.capitalization: 大写策略
+
+         Font.MixedCase: 默认不改变，
+
+         Font.AllUppercase: 全部大写
+
+         Font.AllLowercase: 全部小写
+
+         Font.SmallCaps: 小型大写字母（即小写字母变为大写但不改变大小）
+
+         Font.Capitalize: 将首字母大写
+

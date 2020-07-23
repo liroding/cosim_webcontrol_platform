@@ -76,11 +76,26 @@
 <h2 class="demoHeaders">模块介绍</h2>
 <div id="accordion">
 	<h3>App </h3>
-	<div>介绍app 模块 .</div>
+
+	<div>
+	         <pre>
+	         <text id ="introduction_app" >Introduction</text>
+		 </pre>
+		
+        </div>
 	<h3>Qemu </h3>
-	<div>介绍Qemu 模块 具有哪些功能以及基于资源分配.</div>
+	<div>  
+		<pre>
+		<text id ="introduction_qemu">Introduction</text>
+		</pre>
+	</div>
 	<h3>Dut </h3>
-	<div>介绍Dut 模块 .</div>
+	<div>
+		<pre>
+		<text id ="introduction_dut">Introduction</text>
+		</pre>
+        </div>
+
 </div>
 
 
@@ -120,6 +135,7 @@
 	<button id="btn_closelink">Close Connect </button> </br>
 	
 </div>
+
 
 <!-- Tabs -->
 <h2 id="title_checkcfgarg" class="demoHeaders">查看配置状态</h2>
@@ -163,12 +179,13 @@
 
 
 
-<!-- Tooltip -->
+<!-- Tooltip 
 <h2 class="demoHeaders">Tooltip</h2>
 <p id="tooltip">
 	<a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
 the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.
 </p>
+-->
 
 
 <!-- Highlight / Error -->
@@ -188,7 +205,7 @@ the element with your mouse, the title attribute is displayed in a little box ne
 </div>
 
 
-/////////////////////////////////////////////////////////////////
+
 <!-- record self info -->
 <h2 id="title_recordinfo" class="demoHeaders">Record INFO</h2>
 
@@ -234,43 +251,113 @@ $( "#accordion" ).accordion();
 
 
 $( "#button" ).button();
-$("#btn_runscreen").click(function(){
 
-    alert("数据: run screen");
-	$(this).text("screen open");
+
+//-----------------------------------introduction-----------------------------------------------/
+$(document).ready(function(){
+	$("#introduction_app").load('cosim/introduction/app.txt');
+	$("#introduction_qemu").load('cosim/introduction/qemu.txt');
+	$("#introduction_dut").load('cosim/introduction/dut.txt');
+
+	$("#introduction_app").css('font-size',15);
+	$("#introduction_qemu").css('font-size',15);
+	$("#introduction_dut").css('font-size',15);
+});
+
+
+
+//---------------------------startup screen/qemu/dut func--------------------------------------------/
+$("#btn_runscreen").click(function(){
+            
+       	    alert("数据: run screen");
+            if (serverip == null){
+		alert('ip is null,please connect the server');
+		return ;
+	    } 
+	    console.log('startup screen ..... ');
+	   
+	    gurl = "http://" + serverip + ":" + serverport + "/runscreen";
+	    alert(gurl);
+
+
+	    //send post request
+
+	    $.post(gurl,
+	    {
+		type:"runscreen"
+	       
+	    },
+	    function(data,status){
+		console.log("数据: \n" + data + "\n状态: " + status);
+		$("#btn_runscreen").text("screen open");
+	    });
+
+	
 
 });
 
 $("#btn_runqemu").click(function(){
 
-    alert("数据: run qemu");
-	$(this).text("qemu open");
+       	    alert("数据: run qemu");
+            if (serverip == null){
+		alert('ip is null,please connect the server');
+		return ;
+	    } 
+	    console.log('startup qemu ..... ');
+	   
+	    gurl = "http://" + serverip + ":" + serverport + "/runqemu";
+	    alert(gurl);
+
+
+	    //send post request
+
+	    $.post(gurl,
+	    {
+		type:"runqemu"
+	       
+	    },
+	    function(data,status){
+		console.log("数据: \n" + data + "\n状态: " + status);
+		$("#btn_runqemu").text("qemu open");
+	    });
 
 });
 
 $("#btn_rundut").click(function(){
 
-    alert("数据: run dut");
-	$(this).text("dut open");
+       	    alert("数据: run dut");
+            if (serverip == null){
+		alert('ip is null,please connect the server');
+		return ;
+	    } 
+	    console.log('startup dut ..... ');
+	   
+	    gurl = "http://" + serverip + ":" + serverport + "/rundut";
+	    alert(gurl);
+
+
+	    //send post request
+
+	    $.post(gurl,
+	    {
+		type:"rundut"
+	       
+	    },
+	    function(data,status){
+		console.log("数据: \n" + data + "\n状态: " + status);
+		$("#btn_runqemu").text("dut open");
+	    });
+
 
 });
 
 
 
-
-
-
-
-$( "#radioset" ).buttonset();
-
-
+//------------------------------------------------------------------/
 
 $( "#controlgroup" ).controlgroup();
 
-
-
 $("#connectwebserver").tabs();
-
 
 $(function() {
     $( "#checkcfgarg" ).tabs({
@@ -281,16 +368,7 @@ $(function() {
 
 
 
-$( "#menu" ).menu();
-
-
-
 $( "#tooltip" ).tooltip();
-
-
-
-$( "#selectmenu" ).selectmenu();
-
 
 
 //////////////////////////////////////////////////////////
@@ -438,8 +516,10 @@ $("#href_submit").click(function(){
 
 //-----------------------------------------------------------------//
 $("#href_app").click(function(){
-	if (serverip == null)
+    if (serverip == null){
         alert('ip is null,please connect the server');
+	return;
+    }
     console.log('href app ');
     alert(serverport); 
 //    gurl = "http://127.0.1.1:8888/cosim/cfgini/app.ini";
@@ -476,8 +556,10 @@ $("#href_app").click(function(){
 });
 $("#href_qemu").click(function(){
    
-	if (serverip == null)
+    if (serverip == null){
         alert('ip is null,please connect the server');
+	return ;
+    }
     console.log('href qemu ');
     alert(serverport); 
    
@@ -494,14 +576,14 @@ $("#href_qemu").click(function(){
         type:"qemu"
     },
     function(data,status){
-        console.log("数据: \n" + data + "\n状态: " + status);
+                console.log("数据: \n" + data + "\n状态: " + status);
 		
 		var jsonstr = data;
 		gdatajson = JSON.parse(jsonstr);
 
 		console.log(jsonstr)
 
-	    varnewtab = creatTab(gdatajson,tab);
+	        varnewtab = creatTab(gdatajson,tab);
 
 		console.log(varnewtab)
 		
@@ -519,8 +601,8 @@ $("#btn_openlink").click(function(){
     
 
     $.getJSON("webserver/cfg/server.json",function(data)	{
-                    alert('connect server .....');
-					$.each(data,function(i,field){
+                        alert('connect server .....');
+		        $.each(data,function(i,field){
                         if (i == 'ip'){
                             $("#ip").val(field);
                             serverip = field;
@@ -539,8 +621,10 @@ $("#btn_openlink").click(function(){
 $("#btn_closelink").click(function(){
                 
 
-    if (serverip == null)
+    if (serverip == null){
         alert('ip is null,please connect the server');
+	return ;
+    } 
     console.log('close server connect ..... ');
    
     gurl = "http://" + serverip + ":" + serverport + "/closeserver";
@@ -563,12 +647,6 @@ $("#btn_closelink").click(function(){
 
 
 
-
-
-
-
-
-
 });
 
 //--------------------------show pic func-----------------------------------------/
@@ -578,8 +656,11 @@ $("#btn_closelink").click(function(){
 
 function serverlinkstatus(){
 
-	if (serverip == null)
-        alert('ip is null,please connect the server');
+    if (serverip == null){
+	alert('ip is null,please connect the server');
+	return;
+    }
+    
     console.log('check server link status ..... ');
    
     gurl = "http://" + serverip + ":" + serverport + "/checkserverstatus";
@@ -609,6 +690,9 @@ function serverlinkstatus(){
 //setInterval("serverlinkstatus()",10000);
 
 //----------------------------------Info record-------------------------------------------------/
+
+
+
 $(document).ready(function(){
 
 
