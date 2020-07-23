@@ -17,6 +17,14 @@ import random
 #PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname( os.path.dirname(os.path.realpath(__file__)))
 
+
+class HandleStr():
+  def getkeyvalue(self,strline,key1,key2):
+      pat = re.compile(key1+'(.*?)' + key2,re.S)
+      result = pat.findall(strline)
+      print(result)
+      return result[0]
+
 class HandleCfgFile():
   def getkeyvalue(self,strline,key1,key2):
       pat = re.compile(key1+'(.*?)'+key2,re.S)
@@ -209,6 +217,32 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
 
             handleclass.writebackcfgini(PROJECT_ROOT+ '/cosim/cfgini/qemu.ini',jsonobj)
             return 0         
+
+
+
+       if path == '/updateinfo':    #update note.txt data 
+            print 'add data to txt'
+#            print (content)
+            handleclass =  HandleStr()
+            datastr = handleclass.getkeyvalue(content,'data=','$')
+            datastr = datastr.replace("+"," ")
+#            print(datastr)
+            
+            #write note.txt
+            filepath = PROJECT_ROOT + '/cosim/Record/note.txt'
+#            print filepath
+
+            
+            #storage the datastr to .txt file
+            with open(filepath ,'a') as file:
+               file.write(datastr + '\n')
+
+            return 0         
+
+
+
+
+
 
        if path == '/closeserver':    #close server
     

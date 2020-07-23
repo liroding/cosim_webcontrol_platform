@@ -205,7 +205,7 @@ the element with your mouse, the title attribute is displayed in a little box ne
 
 	<br>
 
-	Input Info: <input type="text" name="user" />
+	Input Info: <input type="text" id="inputinfo" />
 	<button id="btn_addinfo">addinfo</button>
 
 	
@@ -432,7 +432,7 @@ $("#href_submit").click(function(){
 	console.log('href submit');
 	gurlupdate = gurl + "/update";
 	
-    console.log(gurlupdate);
+        console.log(gurlupdate);
 	submit(gurlupdate);
 });
 
@@ -539,7 +539,7 @@ $("#btn_openlink").click(function(){
 $("#btn_closelink").click(function(){
                 
 
-	if (serverip == null)
+    if (serverip == null)
         alert('ip is null,please connect the server');
     console.log('close server connect ..... ');
    
@@ -613,14 +613,55 @@ $(document).ready(function(){
 
 
   $("#btn_showinfo").click(function(){
+      $("#infoshow").val('');
+      $("#infoshow").load('cosim/Record/note.txt',function(ResponseText,Status,xhr){
+	if(Status == "success")
+		console.log("数据: \n" + ResponseText + "\n状态: " + Status);
+	
+     		$("#infoshow").val(ResponseText);
+	});
 
-      $("#infoshow").load('test.txt');
   });
 
 
   $("#btn_addinfo").click(function(){
 
-     alert('dddddd');
+	var ele = document.getElementById("infoshow");
+	var inputvalue = $("#inputinfo").val();
+	alert(inputvalue);
+
+	if (inputvalue.length >0){
+	
+                    ele.value = ele.value + "\n" + inputvalue;
+
+   		    if (serverip == null){
+		          alert('ip is null,please connect the server');
+			  return ;
+		    }
+			   
+		    gurl = "http://" + serverip + ":" + serverport + "/updateinfo";
+		 //   alert(gurl);
+
+			//send post request
+
+		    $.post(gurl,
+		    {
+			type:"addinfo",
+			data:inputvalue
+		       
+		    },
+		    function(data,status){
+			console.log("数据: \n" + data + "\n状态: " + status);
+		
+		    });
+
+
+
+
+
+	}
+	
+      
   });
   
 });
