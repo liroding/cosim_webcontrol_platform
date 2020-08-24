@@ -14,6 +14,39 @@ import json
 from configobj import ConfigObj
 import random
 
+
+
+#-------------------------------------------------------#
+
+CFGINI_APPINI_PATH = '/cosim/cfgini/app.ini'
+CFGINI_QEMUINI_PATH = '/cosim/cfgini/qemu.ini'
+CFGINI_DUTINI_PATH = '/cosim/cfgini/dut.ini'
+
+
+CFGINI_APPINI_UPDATE_PATH = '/cosim/cfgini/app.ini/update'
+CFGINI_QEMUINI_UPDATE_PATH = '/cosim/cfgini/qemu.ini/update'
+CFGINI_DUTINI_UPDATE_PATH = '/cosim/cfgini/dut.ini/update'
+
+
+#Record Path
+RECORD_PATH = '/cosim/Record/note.txt'
+
+
+#SCRIPT_QEMUHANDLE_PATH = '/cosim/shellscript/runqemu.sh'
+
+#web server cfg path
+SERVERCFG_INI_PATH = '/webserver/cfg/server.ini'
+SERVERCFG_JSON_PATH = '/webserver/cfg/server.json' 
+
+
+#terminal path
+TERMINAL_QEMU_PATH = '/cosim/shellscript/terminal_handle/runqemu.sh'
+TERMINAL_SCREEN_PATH = '/cosim/shellscript/terminal_handle/screen.sh'
+
+#-------------------------------------------------------#
+
+
+
 #PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
 PROJECT_ROOT = os.path.dirname( os.path.dirname(os.path.realpath(__file__)))
 class HandleStr():
@@ -179,41 +212,41 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
        
        print( path )
 
-       if path == '/cosim/cfgini/app.ini':
+       if path == CFGINI_APPINI_PATH:
             print 'get the app.ini'
             print (PROJECT_ROOT)
-            jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/cosim/cfgini/app.ini',*{'ARG','CASE'})
+            jsonStr = handleclass.tojsondata(PROJECT_ROOT + CFGINI_APPINI_PATH ,*{'ARG','CASE'})
             self.wfile.write(jsonStr)
 
             return 0
 
 
 
-       if path == '/cosim/cfgini/qemu.ini':
+       if path == CFGINI_QEMUINI_PATH :
             print 'get the qemu.ini'
             print (PROJECT_ROOT)
-            jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/cosim/cfgini/qemu.ini',*{'ARG','CASE'})
+            jsonStr = handleclass.tojsondata(PROJECT_ROOT + CFGINI_QEMUINI_PATH,*{'ARG','CASE'})
             self.wfile.write(jsonStr)
 
             return 0
 
 
 
-       if path == '/cosim/cfgini/app.ini/update':    #app cfg submit
+       if path == CFGINI_APPINI_UPDATE_PATH :    #app cfg submit
             print 'submit new cfg data to app.ini'
             jsonobj = json.loads(content)  #string to jsonobj
             #print(type(jsonobj))
             #print(jsonobj)
 
-            handleclass.writebackcfgini(PROJECT_ROOT+ '/cosim/cfgini/app.ini',jsonobj)
+            handleclass.writebackcfgini(PROJECT_ROOT + CFGINI_APPINI_PATH ,jsonobj)
             return 0         
 
 
-       if path == '/cosim/cfgini/qemu.ini/update':    #qemu cfg submit
+       if path == CFGINI_QEMUINI_UPDATE_PATH :    #qemu cfg submit
             print 'submit new cfg data to qemu.ini'
             jsonobj = json.loads(content)  #string to jsonobj
 
-            handleclass.writebackcfgini(PROJECT_ROOT+ '/cosim/cfgini/qemu.ini',jsonobj)
+            handleclass.writebackcfgini(PROJECT_ROOTi + CFGINI_QEMUINI_PATH ,jsonobj)
             return 0         
 
 
@@ -227,7 +260,7 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
 #            print(datastr)
             
             #write note.txt
-            filepath = PROJECT_ROOT + '/cosim/Record/note.txt'
+            filepath = PROJECT_ROOT + RECORD_PATH
 #            print filepath
 
             
@@ -238,10 +271,6 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
             return 0         
 
 
-
-
-
-
        if path == '/closeserver':    #close server
     
             close_server()
@@ -250,12 +279,14 @@ class TestHTTPHandler(BaseHTTPRequestHandler):
             return 0
 
 
-
-
        if path == '/runscreen':    # server status
             print('runscreen')
-            scriptpath_screen = PROJECT_ROOT + '/cosim/shellscript/runqemu.sh'
-            os.system(scriptpath_screen)
+            scriptpath = PROJECT_ROOT + TERMINAL_SCREEN_PATH
+            CMD1 = "bash " + scriptpath + ";"
+            CMDEND = "exec sh"
+
+            cmdstr = "gnome-terminal -e 'bash -c " + "\"" + CMD1 + CMDEND + "\" '"
+            os.system(cmdstr)
             self.wfile.write('run screen script')
             return 0
 
@@ -300,7 +331,7 @@ def start_server(port):
      ip = socket.gethostbyname(hostname)
 
      #write server.ini file
-     jsonStr = handleclass.tojsondata(PROJECT_ROOT+ '/webserver/cfg/server.ini',*{'ARG'})
+     jsonStr = handleclass.tojsondata(PROJECT_ROOT + SERVERCFG_INI_PATH ,*{'ARG'})
      
      jsondata = json.loads(jsonStr)
 
@@ -308,13 +339,13 @@ def start_server(port):
      jsondata[0]['port'] = port #update port value
      jsondata[0]['hostname'] = hostname #update hostname
      
-     handleclass.writebackcfgini(PROJECT_ROOT+ '/webserver/cfg/server.ini',jsondata)
+     handleclass.writebackcfgini(PROJECT_ROOT + SERVERCFG_INI_PATH,jsondata)
 
 
 
 
      #write server.json
-     filepath = PROJECT_ROOT + '/webserver/cfg/server.json'
+     filepath = PROJECT_ROOT + SERVERCFG_JSON_PATH 
      print filepath
 
      jsondata =""
@@ -349,7 +380,7 @@ def getPort():
 def close_server():
     print("close web server !!!")
     #write server.json
-    filepath = PROJECT_ROOT + '/webserver/cfg/server.json'
+    filepath = PROJECT_ROOT + SERVERCFG_JSON_PATH 
     print filepath
 
     jsondata =""
@@ -363,6 +394,6 @@ def close_server():
         json.dump(jsondata,file)
     os._exit(0)
 
-os.chdir('../static') #改变工作目录到 static 目录
+os.chdir('../cosim/shellscript') #改变工作目录到 static 目录
 randomport = getPort()
 start_server(randomport) #启动服务，监听8000端口
